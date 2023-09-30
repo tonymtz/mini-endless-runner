@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4db3e7ad8941645f3b68bb5eb0380ccb
+timeCreated: 1515294275
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 12800000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42363
+  packageName: Pixel Art Fonts
+  packageVersion: 1.5
+  assetPath: Assets/Dadako/BitmapFonts/Pixel/Help-fill.fontsettings
+  uploadId: 222616

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a9536c657144640d2b6ce2f4e90f16cc
+timeCreated: 1488799081
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42363
+  packageName: Pixel Art Fonts
+  packageVersion: 1.5
+  assetPath: Assets/Dadako/BitmapFonts/Pixel/Pixel-Resources/Help/help-monospaced.mat
+  uploadId: 222616

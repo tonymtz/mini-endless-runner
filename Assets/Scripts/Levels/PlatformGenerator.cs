@@ -7,6 +7,9 @@ namespace Levels {
 
 		PlatformController _latestPlatform;
 
+		public PlatformController LatestPlatform => _latestPlatform;
+		public Transform nextBuff;
+
 		// Start is called before the first frame update
 		void Start () {
 			AddPlatform();
@@ -14,7 +17,7 @@ namespace Levels {
 
 		void AddPlatform () {
 			int randomIndex = Random.Range(0, platforms.Length);
-			Transform target = _latestPlatform ? _latestPlatform.NextPlatformPosition : nextPlatformPosition;
+			Transform target = LatestPlatform ? LatestPlatform.NextPlatformPosition : nextPlatformPosition;
 			Transform newPlatform = Instantiate(platforms[randomIndex], target.position, Quaternion.identity);
 			PlatformController newPlatformController = newPlatform.GetComponent<PlatformController>();
 
@@ -22,11 +25,17 @@ namespace Levels {
 			newPlatformController.OnPlayerTrigger += OnPlayerTriggered;
 
 			// Teardown subscription from previous
-			if (_latestPlatform != null)
-				_latestPlatform.OnPlayerTrigger -= OnPlayerTriggered;
+			if (LatestPlatform != null)
+				LatestPlatform.OnPlayerTrigger -= OnPlayerTriggered;
 
 			// Now latest is the just created
 			_latestPlatform = newPlatformController;
+
+			// Spawn buff if next is present
+			if (nextBuff != null) {
+				Instantiate(nextBuff, newPlatformController.NextBuffPosition.position, Quaternion.identity);
+				nextBuff = null;
+			}
 		}
 
 		void OnPlayerTriggered () {

@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player {
 	public class PlayerController : MonoBehaviour {
-		// Start is called before the first frame update
-		void Start () {
-
-		}
-
-		// Update is called once per frame
 		void Update () {
-
+			if (GameManager.Instance.IsGameOver) {
+				if (Input.GetKeyDown(KeyCode.R)) {
+					SceneManager.LoadScene(0);
+				}
+			} else if (!GameManager.Instance.IsPlaying) {
+				if (Input.GetButtonDown("Jump")) {
+					GameManager.Instance.StartGame();
+				}
+			}
 		}
 	}
 }
