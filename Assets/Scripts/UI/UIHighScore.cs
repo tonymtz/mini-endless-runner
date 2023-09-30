@@ -4,19 +4,20 @@ using UnityEngine.UI;
 namespace UI {
 	public class UIHighScore : MonoBehaviour {
 		[SerializeField] Text text;
-		[SerializeField] string label;
 
-		int highScore;
+		int _currentHighest;
 
 		void Start () {
-			highScore = PlayerPrefs.GetInt("highest-score", 0);
-		}
+			int score = GameManager.Instance.Score;
+			_currentHighest = PlayerPrefs.GetInt("highest-score", 0);
 
-		void Update () {
-			if (label != null && label.Trim() != "") {
-				text.text = string.Format("{0}\n{1}", label, highScore);
+			if (score > _currentHighest) {
+				// new highest!
+				text.text = "New\nhighest!";
+				PlayerPrefs.SetInt("highest-score", score);
 			} else {
-				text.text = string.Format("{0}", highScore);
+				// nothing!
+				text.text = string.Format("Highest:\n{0}", _currentHighest);
 			}
 		}
 	}

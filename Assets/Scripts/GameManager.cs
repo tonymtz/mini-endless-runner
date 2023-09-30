@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour {
 	bool _isPlaying;
 	float _score;
 	PlayerMovement _playerMovement;
-	UIEffect _uiEffect;
-	UIScore _uiScore;
 
 	public bool IsGameOver => _isGameOver;
 	public bool IsPlaying => _isPlaying;
@@ -40,18 +38,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
-		// Need to be active
-		playScreen.SetActive(true);
-		gameoverScreen.SetActive(true);
-		
-		// So these vars can be set
-		_uiEffect = FindObjectsByType<UIEffect>(FindObjectsSortMode.None)[0];
-		_uiScore = FindObjectsByType<UIScore>(FindObjectsSortMode.None)[0];
 		_playerMovement = FindObjectsByType<PlayerMovement>(FindObjectsSortMode.None)[0];
 		_isPlaying = false;
 		_isGameOver = false;
-		
-		// Now we can deactivate
+
 		playScreen.SetActive(false);
 		gameoverScreen.SetActive(false);
 		startScreen.SetActive(true);
@@ -67,8 +57,6 @@ public class GameManager : MonoBehaviour {
 		GetComponent<BuffsGenerator>().StartGeneration();
 	}
 
-	[SerializeField] Text sideScoreText;
-
 	public void GameOver () {
 		_isPlaying = false;
 		_isGameOver = true;
@@ -77,28 +65,17 @@ public class GameManager : MonoBehaviour {
 		gameoverScreen.SetActive(true);
 		GetComponent<BuffsGenerator>().StopGeneration();
 
-		if (sideScoreText == null) return;
-
-		// Recover highest score
-		int currentHighest = PlayerPrefs.GetInt("highest-score", 0);
-
-		if (_score > (int)currentHighest) {
-			// new highest!
-			sideScoreText.text = "New\nhighest!";
-			PlayerPrefs.SetInt("highest-score", (int)_score);
-		} else {
-			// nothing!
-			sideScoreText.text = string.Format("Highest:\n{0}", currentHighest);
-		}
+		// Highest score is updated by UIHighScore component
 	}
 
 	#region Buffs
 
 	[SerializeField] int bonusPerBuff = 20;
 
-	void BuffPicked () {
+	void BuffPicked (string display, float time) {
 		_score += bonusPerBuff;
-		_uiScore.Animate();
+		UIEffect.Instance.StartEffect(display, time);
+		UIScoreWithAnimation.Instance.Animate();
 	}
 
 	#region Player Speed
@@ -110,16 +87,15 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float moreSpeedTime = 3f;
 
 	public void StartMoreSpeed () {
-		BuffPicked();
+		BuffPicked("Speed++!", moreSpeedTime);
 		_originalPlayerSpeed = _playerMovement.Speed;
 		_playerMovement.Speed = moreSpeed;
-		_uiEffect.StartEffect("Speed++!", moreSpeedTime);
 		StartCoroutine(EndMoreSpeed());
 	}
 
 	IEnumerator EndMoreSpeed () {
 		yield return new WaitForSeconds(moreSpeedTime);
-		_uiEffect.HideEffect();
+		UIEffect.Instance.HideEffect();
 		_playerMovement.Speed = _originalPlayerSpeed;
 	}
 
@@ -134,16 +110,15 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float moreJumpTime = 4f;
 
 	public void StartMoreJump () {
-		BuffPicked();
+		BuffPicked("Jump++!", moreJumpTime);
 		_originalPlayerJump = _playerMovement.Jump;
 		_playerMovement.Jump = moreJump;
-		_uiEffect.StartEffect("Jump++!", moreJumpTime);
 		StartCoroutine(EndMoreJump());
 	}
 
 	IEnumerator EndMoreJump () {
 		yield return new WaitForSeconds(moreJumpTime);
-		_uiEffect.HideEffect();
+		UIEffect.Instance.HideEffect();
 		_playerMovement.Jump = _originalPlayerJump;
 	}
 
@@ -159,17 +134,16 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float pumpkingSlowTime = 3f;
 
 	public void StartPumpkingSlow () {
-		BuffPicked();
+		BuffPicked("Pumpking slowed!", pumpkingSlowTime);
 		_pumpkingController = FindObjectsByType<PumpkingController>(FindObjectsSortMode.None)[0];
 		_originalPumpkingSpeed = _pumpkingController.Speed;
 		_pumpkingController.Speed = pumpkingSlow;
-		_uiEffect.StartEffect("Pumpking slowed!", pumpkingSlowTime);
 		StartCoroutine(EndPumpkingSlow());
 	}
 
 	IEnumerator EndPumpkingSlow () {
 		yield return new WaitForSeconds(pumpkingSlowTime);
-		_uiEffect.HideEffect();
+		UIEffect.Instance.HideEffect();
 		_pumpkingController.Speed = _originalPumpkingSpeed;
 	}
 
@@ -181,15 +155,14 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float playerFlyTime = 4f;
 
 	public void StartPlayerFly () {
-		BuffPicked();
+		BuffPicked("Infinite Jump!", playerFlyTime);
 		_playerMovement.CanFly = true;
-		_uiEffect.StartEffect("Infinite Jump!", playerFlyTime);
 		StartCoroutine(EndPlayerFly());
 	}
 
 	IEnumerator EndPlayerFly () {
 		yield return new WaitForSeconds(playerFlyTime);
-		_uiEffect.HideEffect();
+		UIEffect.Instance.HideEffect();
 		_playerMovement.CanFly = false;
 	}
 

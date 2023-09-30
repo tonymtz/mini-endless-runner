@@ -1,9 +1,23 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI {
 	public class UIEffect : MonoBehaviour {
+		#region Singleton
+
+		public static UIEffect Instance { get; private set; }
+
+		void Awake () {
+			// If there is an instance, and it's not me, delete myself.
+			if (Instance != null && Instance != this) {
+				Destroy(this);
+			} else {
+				Instance = this;
+			}
+		}
+
+		#endregion
+
 		float _maxTime;
 		float _currentTime;
 
