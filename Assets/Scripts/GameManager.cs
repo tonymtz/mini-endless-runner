@@ -3,6 +3,7 @@ using Player;
 using System.Collections;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public static GameManager Instance { get; private set; }
@@ -39,14 +40,21 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
+		// Need to be active
+		playScreen.SetActive(true);
+		gameoverScreen.SetActive(true);
+		
+		// So these vars can be set
 		_uiEffect = FindObjectsByType<UIEffect>(FindObjectsSortMode.None)[0];
 		_uiScore = FindObjectsByType<UIScore>(FindObjectsSortMode.None)[0];
 		_playerMovement = FindObjectsByType<PlayerMovement>(FindObjectsSortMode.None)[0];
 		_isPlaying = false;
 		_isGameOver = false;
-		startScreen.SetActive(true);
+		
+		// Now we can deactivate
 		playScreen.SetActive(false);
 		gameoverScreen.SetActive(false);
+		startScreen.SetActive(true);
 	}
 
 	public void StartGame () {
@@ -59,6 +67,8 @@ public class GameManager : MonoBehaviour {
 		GetComponent<BuffsGenerator>().StartGeneration();
 	}
 
+	[SerializeField] Text sideScoreText;
+
 	public void GameOver () {
 		_isPlaying = false;
 		_isGameOver = true;
@@ -66,6 +76,20 @@ public class GameManager : MonoBehaviour {
 		playScreen.SetActive(false);
 		gameoverScreen.SetActive(true);
 		GetComponent<BuffsGenerator>().StopGeneration();
+
+		if (sideScoreText == null) return;
+
+		// Recover highest score
+		int currentHighest = PlayerPrefs.GetInt("highest-score", 0);
+
+		if (_score > (int)currentHighest) {
+			// new highest!
+			sideScoreText.text = "New\nhighest!";
+			PlayerPrefs.SetInt("highest-score", (int)_score);
+		} else {
+			// nothing!
+			sideScoreText.text = string.Format("Highest:\n{0}", currentHighest);
+		}
 	}
 
 	#region Buffs

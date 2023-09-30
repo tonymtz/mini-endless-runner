@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI {
 	public class UIScore : MonoBehaviour {
 		[SerializeField] Text text;
-		[SerializeField] string label = "{0}";
+		[SerializeField] string label;
 
 		Animator _animator;
 
@@ -14,7 +13,11 @@ namespace UI {
 		}
 
 		void Update () {
-			text.text = string.Format(label, GameManager.Instance.Score);
+			if (label != null && label.Trim() != "") {
+				text.text = string.Format("{0}\n{1}", label, GameManager.Instance.Score);
+			} else {
+				text.text = string.Format("{0}", GameManager.Instance.Score);
+			}
 		}
 
 		public void Animate () {
