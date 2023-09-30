@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Player {
 		bool _isJumping;
 		float _coyoteTimerCounter;
 		float _jumpBufferCounter;
+		Animator _animator;
 
 		[SerializeField] Transform groundCheck;
 		[SerializeField] LayerMask groundLayer;
@@ -44,6 +46,7 @@ namespace Player {
 
 		void Start () {
 			_rigidbody2D = GetComponent<Rigidbody2D>();
+			_animator = GetComponent<Animator>();
 		}
 
 		void Update () {
@@ -76,9 +79,12 @@ namespace Player {
 		void FixedUpdate () {
 			if (GameManager.Instance.IsPlaying) {
 				_rigidbody2D.velocity = new Vector2(Speed, _rigidbody2D.velocity.y);
+				_animator.SetBool("IsRunning", true);
 			} else {
 				_rigidbody2D.velocity = new Vector2(0f, _rigidbody2D.velocity.y);
 			}
+
+			_animator.SetBool("IsAir", Math.Abs(_rigidbody2D.velocity.y) > 0.1f);
 		}
 
 		[SerializeField] float groundCheckerRadius = 0.2f;

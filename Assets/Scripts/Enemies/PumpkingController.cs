@@ -3,9 +3,10 @@ using UnityEngine;
 namespace Enemies {
 	public class PumpkingController : MonoBehaviour {
 		Rigidbody2D _rigidbody2D;
+		Transform _player;
 
 		[SerializeField] float speed = 6f;
-		
+
 		public float Speed {
 			get {
 				return speed;
@@ -17,6 +18,7 @@ namespace Enemies {
 
 		void Start () {
 			_rigidbody2D = GetComponent<Rigidbody2D>();
+			_player = GameObject.FindGameObjectWithTag("Player").transform;
 		}
 
 		void FixedUpdate () {
