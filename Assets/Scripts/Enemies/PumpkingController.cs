@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Enemies {
@@ -27,6 +28,23 @@ namespace Enemies {
 				return;
 			}
 			_rigidbody2D.velocity = new Vector2(speed, _rigidbody2D.velocity.y);
+		}
+
+		[SerializeField] float minDistance = 3f;
+		[SerializeField] float maxDistance = 10f;
+		[SerializeField] Transform ceilingVines;
+
+		void Update () {
+			ceilingVines.position = new Vector3(
+				ceilingVines.position.x,
+				(PlayerDistance()/4) - 3,
+				ceilingVines.position.z
+				);
+			Debug.Log("Distance: " + PlayerDistance());
+		}
+
+		float PlayerDistance () {
+			return Vector3.Distance(transform.position, _player.position);
 		}
 	}
 }
