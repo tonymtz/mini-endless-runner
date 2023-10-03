@@ -40,7 +40,7 @@ namespace Enemies {
 				(PlayerDistance()/4) - 3,
 				ceilingVines.position.z
 				);
-			Debug.Log("Distance: " + PlayerDistance());
+			// Debug.Log("Distance: " + PlayerDistance());
 		}
 
 		float PlayerDistance () {

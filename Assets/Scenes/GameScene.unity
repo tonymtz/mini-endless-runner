@@ -478,6 +478,7 @@ MonoBehaviour:
   platforms:
   - {fileID: 8798962295312304235, guid: a8f20080b16b849afb64e29b874782fd, type: 3}
   - {fileID: 5631631285377943646, guid: 8d9836f4bf8f54bfb9f867dd4430970f, type: 3}
+  - {fileID: 5631631285377943646, guid: f90dffa0fd7004a4bb653936fe79354e, type: 3}
   nextPlatformPosition: {fileID: 1220725979}
   nextBuff: {fileID: 0}
 --- !u!4 &306794077
