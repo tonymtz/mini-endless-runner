@@ -7,6 +7,9 @@ namespace Enemies {
 		Transform _player;
 
 		[SerializeField] float speedMultiplier = 0.85f;
+		[SerializeField] Transform ceilingVines;
+		[SerializeField] GameObject warningText;
+		[SerializeField] float warningTextDistance;
 
 		public float SpeedMultiplier {
 			get {
@@ -32,14 +35,21 @@ namespace Enemies {
 			_rigidbody2D.velocity = new Vector2(currentSpeed, _rigidbody2D.velocity.y);
 		}
 
-		[SerializeField] Transform ceilingVines;
-
 		void Update () {
 			ceilingVines.position = new Vector3(
 				ceilingVines.position.x,
 				(PlayerDistance()/4) - 3,
 				ceilingVines.position.z
 				);
+
+			if (warningText == null) return;
+
+			if (PlayerDistance() > warningTextDistance) {
+				warningText.SetActive(true);
+			} else {
+				warningText.SetActive(false);
+			}
+
 			// Debug.Log("Distance: " + PlayerDistance());
 		}
 

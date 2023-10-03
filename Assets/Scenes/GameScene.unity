@@ -1325,6 +1325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 1.01
   ceilingVines: {fileID: 1091643345}
+  warningText: {fileID: 1352802198}
+  warningTextDistance: 8
 --- !u!61 &952418398
 BoxCollider2D:
   m_ObjectHideFlags: 0
