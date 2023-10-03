@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f93b14208ef4d48b09981b16a677b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8.15
+  speed: 7.15
   minDistance: 3
   maxDistance: 10
   ceilingVines: {fileID: 1091643345}
@@ -3448,11 +3448,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  speed: 8
+  speed: 7
   jump: 16
   coyoteTime: 0.2
   jumpBufferTime: 0.1
-  jumpCooldown: 0.3
+  jumpCooldown: 0.2
   groundCheckerRadius: 0.2
 --- !u!95 &1792890245
 Animator:
