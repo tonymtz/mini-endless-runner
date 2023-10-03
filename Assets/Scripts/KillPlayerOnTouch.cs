@@ -1,3 +1,4 @@
+using GameManagement;
 using UnityEngine;
 
 public class KillPlayerOnTouch : MonoBehaviour {

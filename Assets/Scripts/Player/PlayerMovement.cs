@@ -1,3 +1,4 @@
+using GameManagement;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -10,23 +11,15 @@ namespace Player {
 		float _coyoteTimerCounter;
 		float _jumpBufferCounter;
 		Animator _animator;
+		float _speedMultiplier;
 
 		[SerializeField] Transform groundCheck;
 		[SerializeField] LayerMask groundLayer;
-		[SerializeField] float speed = 8f;
 		[SerializeField] float jump = 16f;
 		[SerializeField] float coyoteTime = 0.2f;
 		[SerializeField] float jumpBufferTime = 0.2f;
 		[SerializeField] float jumpCooldown = 0.1f;
 
-		public float Speed {
-			get {
-				return speed;
-			}
-			set {
-				speed = value;
-			}
-		}
 		public float Jump {
 			get {
 				return jump;
@@ -41,6 +34,14 @@ namespace Player {
 			}
 			set {
 				_canFly = value;
+			}
+		}
+		public float SpeedMultiplier {
+			get {
+				return _speedMultiplier;
+			}
+			set {
+				_speedMultiplier = value;
 			}
 		}
 
@@ -78,7 +79,8 @@ namespace Player {
 
 		void FixedUpdate () {
 			if (GameManager.Instance.IsPlaying) {
-				_rigidbody2D.velocity = new Vector2(Speed, _rigidbody2D.velocity.y);
+				float currentSpeed = SpeedManager.Instance.CurrentSpeed*_speedMultiplier;
+				_rigidbody2D.velocity = new Vector2(currentSpeed, _rigidbody2D.velocity.y);
 				_animator.SetBool("IsRunning", true);
 			} else {
 				_rigidbody2D.velocity = new Vector2(0f, _rigidbody2D.velocity.y);

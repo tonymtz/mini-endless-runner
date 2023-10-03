@@ -1,3 +1,4 @@
+using GameManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +14,11 @@ namespace UI {
 
 			if (score > _currentHighest) {
 				// new highest!
-				text.text = "New\nhighest!";
+				text.text = "New\nrecord!";
 				PlayerPrefs.SetInt("highest-score", score);
 			} else {
 				// nothing!
-				text.text = string.Format("Highest:\n{0}", _currentHighest);
+				text.text = string.Format("Your record:\n{0}", _currentHighest);
 			}
 		}
 	}

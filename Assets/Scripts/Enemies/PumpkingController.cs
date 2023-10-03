@@ -1,4 +1,4 @@
-using System;
+using GameManagement;
 using UnityEngine;
 
 namespace Enemies {
@@ -6,14 +6,14 @@ namespace Enemies {
 		Rigidbody2D _rigidbody2D;
 		Transform _player;
 
-		[SerializeField] float speed = 6f;
+		[SerializeField] float speedMultiplier = 0.85f;
 
-		public float Speed {
+		public float SpeedMultiplier {
 			get {
-				return speed;
+				return speedMultiplier;
 			}
 			set {
-				speed = value;
+				speedMultiplier = value;
 			}
 		}
 
@@ -27,11 +27,11 @@ namespace Enemies {
 				_rigidbody2D.velocity = Vector2.zero;
 				return;
 			}
-			_rigidbody2D.velocity = new Vector2(speed, _rigidbody2D.velocity.y);
+
+			float currentSpeed = SpeedManager.Instance.CurrentSpeed*speedMultiplier;
+			_rigidbody2D.velocity = new Vector2(currentSpeed, _rigidbody2D.velocity.y);
 		}
 
-		[SerializeField] float minDistance = 3f;
-		[SerializeField] float maxDistance = 10f;
 		[SerializeField] Transform ceilingVines;
 
 		void Update () {
