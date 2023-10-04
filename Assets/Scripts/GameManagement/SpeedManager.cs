@@ -3,12 +3,16 @@ using System.Collections;
 using UnityEngine;
 
 namespace GameManagement {
+	public enum LevelDifficulty {
+		Easy,
+		Medium
+	}
+
 	[Serializable]
 	public class Level {
 		public int scoreRequired;
 		public float speed;
-		// add platforms
-		// add buffs
+		public LevelDifficulty levelDifficulty;
 	}
 
 	public class SpeedManager : MonoBehaviour {
@@ -32,8 +36,10 @@ namespace GameManagement {
 
 		float _currentGameSpeed;
 		int _currentLevelIndex;
+		LevelDifficulty _currentLevelDifficulty;
 
 		public float CurrentSpeed => _currentGameSpeed;
+		public LevelDifficulty CurrentLevelDifficulty => _currentLevelDifficulty;
 
 		void Start () {
 			if (speedUpLabel != null) {
@@ -44,6 +50,7 @@ namespace GameManagement {
 		public void StartGame () {
 			_currentLevelIndex = 0;
 			_currentGameSpeed = levels[0].speed;
+			_currentLevelDifficulty = levels[0].levelDifficulty;
 		}
 
 		void Update () {
@@ -56,6 +63,7 @@ namespace GameManagement {
 
 			if (currentScore >= nextLevel.scoreRequired) {
 				_currentGameSpeed = nextLevel.speed;
+				_currentLevelDifficulty = nextLevel.levelDifficulty;
 				_currentLevelIndex += 1;
 				if (speedUpLabel != null) {
 					speedUpLabel.SetActive(enabled);
