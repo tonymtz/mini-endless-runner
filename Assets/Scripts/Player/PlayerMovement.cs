@@ -19,6 +19,7 @@ namespace Player {
 		[SerializeField] float coyoteTime = 0.2f;
 		[SerializeField] float jumpBufferTime = 0.2f;
 		[SerializeField] float jumpCooldown = 0.1f;
+		[SerializeField] ParticleSystem smoke;
 
 		public float Jump {
 			get {
@@ -48,6 +49,11 @@ namespace Player {
 		void Start () {
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_animator = GetComponent<Animator>();
+
+			if (smoke != null) {
+				var emission = smoke.emission;
+				emission.enabled = false;
+			}
 		}
 
 		void Update () {
@@ -55,7 +61,15 @@ namespace Player {
 				return;
 			}
 
-			if (IsGrounded()) {
+			bool isGrounded = IsGrounded();
+
+			// Add smoke particles
+			if (smoke != null) {
+				var emission = smoke.emission;
+				emission.enabled = GameManager.Instance.IsPlaying && !GameManager.Instance.IsGameOver && isGrounded && !_canFly;
+			}
+
+			if (isGrounded) {
 				_coyoteTimerCounter = coyoteTime;
 			} else {
 				_coyoteTimerCounter -= Time.deltaTime;
