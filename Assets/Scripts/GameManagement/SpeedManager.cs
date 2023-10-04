@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace GameManagement {
@@ -26,12 +27,19 @@ namespace GameManagement {
 
 		#endregion
 
+		[SerializeField] GameObject speedUpLabel;
 		[SerializeField] Level[] levels;
 
 		float _currentGameSpeed;
 		int _currentLevelIndex;
 
 		public float CurrentSpeed => _currentGameSpeed;
+
+		void Start () {
+			if (speedUpLabel != null) {
+				speedUpLabel.SetActive(false);
+			}
+		}
 
 		public void StartGame () {
 			_currentLevelIndex = 0;
@@ -49,7 +57,16 @@ namespace GameManagement {
 			if (currentScore >= nextLevel.scoreRequired) {
 				_currentGameSpeed = nextLevel.speed;
 				_currentLevelIndex += 1;
+				if (speedUpLabel != null) {
+					speedUpLabel.SetActive(enabled);
+					StartCoroutine(HideLabel());
+				}
 			}
+		}
+
+		public IEnumerator HideLabel () {
+			yield return new WaitForSeconds(1f);
+			speedUpLabel.SetActive(false);
 		}
 	}
 }

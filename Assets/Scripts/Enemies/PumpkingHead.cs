@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Enemies {
@@ -7,9 +8,12 @@ namespace Enemies {
 
 		[SerializeField] Transform target;
 		[SerializeField] float smoothTime = 0.5f;
+		[SerializeField] float maxHeight;
+		[SerializeField] float minHeight;
 
 		void LateUpdate () {
-			Vector3 targetPosition = new Vector3(transform.position.x, target.position.y, transform.position.z) + _offset;
+			float positionY = math.clamp(target.position.y, minHeight, maxHeight);
+			Vector3 targetPosition = new Vector3(transform.position.x, positionY, transform.position.z) + _offset;
 			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, smoothTime);
 		}
 	}

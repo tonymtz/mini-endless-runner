@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 88ff07d15f1ce4f8fafa8cf3a1984b2c
+timeCreated: 1437735814
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42363
+  packageName: Pixel Art Fonts
+  packageVersion: 1.5
+  assetPath: Assets/Dadako/BitmapFonts/Pixel/_PixelCharLimits.txt
+  uploadId: 222616
