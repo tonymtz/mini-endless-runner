@@ -12,6 +12,7 @@ namespace Player {
 		float _jumpBufferCounter;
 		Animator _animator;
 		float _speedMultiplier;
+		bool _wasGroundedThePreviousFrame;
 
 		[SerializeField] Transform groundCheck;
 		[SerializeField] LayerMask groundLayer;
@@ -20,6 +21,8 @@ namespace Player {
 		[SerializeField] float jumpBufferTime = 0.2f;
 		[SerializeField] float jumpCooldown = 0.1f;
 		[SerializeField] ParticleSystem smoke;
+		[SerializeField] Transform transformToSpawnOnGrounded;
+		[SerializeField] ParticleSystem magic;
 
 		public float Jump {
 			get {
@@ -50,37 +53,30 @@ namespace Player {
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_animator = GetComponent<Animator>();
 
-			if (smoke != null) {
-				var emission = smoke.emission;
-				emission.enabled = false;
-			}
+			ToggleSmoke(false);
+			ToggleMagic(false);
 		}
 
 		void Update () {
-			if (!GameManager.Instance.IsPlaying) {
-				return;
-			}
+			// Skip if it's not playing
+			if (!GameManager.Instance.IsPlaying) return;
 
+			// Caching this, will be used multiple times!
 			bool isGrounded = IsGrounded();
 
-			// Add smoke particles
-			if (smoke != null) {
-				var emission = smoke.emission;
-				emission.enabled = GameManager.Instance.IsPlaying && !GameManager.Instance.IsGameOver && isGrounded && !_canFly;
-			}
-
-			if (isGrounded) {
+			// Updates coyote time
+			if (isGrounded)
 				_coyoteTimerCounter = coyoteTime;
-			} else {
+			else
 				_coyoteTimerCounter -= Time.deltaTime;
-			}
 
-			if (Input.GetButtonDown("Jump")) {
+			// Updates jump buffer
+			if (Input.GetButtonDown("Jump"))
 				_jumpBufferCounter = jumpBufferTime;
-			} else {
+			else
 				_jumpBufferCounter -= Time.deltaTime;
-			}
 
+			// This is where the Rigidbody2D is updated
 			if (_coyoteTimerCounter > 0f && _jumpBufferCounter > 0f && !_isJumping) {
 				_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, Jump);
 				_jumpBufferCounter = 0f;
@@ -89,6 +85,28 @@ namespace Player {
 				_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y*0.5f);
 				_coyoteTimerCounter = 0f;
 			}
+
+			// Add smoke particles when running (and grounded)
+			ToggleSmoke(
+				GameManager.Instance.IsPlaying &&
+				!GameManager.Instance.IsGameOver &&
+				isGrounded && !_canFly
+				);
+
+			// Instantiate a smoke poof if player "just" landed
+			if (!_wasGroundedThePreviousFrame && isGrounded && transformToSpawnOnGrounded != null) {
+				Instantiate(transformToSpawnOnGrounded, groundCheck.position, Quaternion.identity);
+			}
+
+			// Update animator in case is flying
+			if (_animator.GetBool("IsFlying") != CanFly) {
+				_animator.SetBool("IsFlying", CanFly);
+			}
+
+			ToggleMagic(CanFly);
+
+			// Cache grounded value
+			_wasGroundedThePreviousFrame = isGrounded;
 		}
 
 		void FixedUpdate () {
@@ -118,6 +136,20 @@ namespace Player {
 			_isJumping = true;
 			yield return new WaitForSeconds(jumpCooldown);
 			_isJumping = false;
+		}
+
+		void ToggleSmoke (bool value) {
+			if (smoke != null) {
+				var emission = smoke.emission;
+				emission.enabled = value;
+			}
+		}
+
+		void ToggleMagic (bool value) {
+			if (magic != null) {
+				var emission = magic.emission;
+				emission.enabled = value;
+			}
 		}
 	}
 }

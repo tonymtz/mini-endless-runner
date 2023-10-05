@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 88579359b50f04f0b8fb9e73fcbf3fe0
+guid: 38a38b0eee26542aa936ce46085f53a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6180902458064269819
-    second: Untitled 28_0
+      213: 7220422611819659900
+    second: player_fly_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -57,7 +57,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled 28_0
+      name: player_fly_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 5
-        height: 5
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf1724ca90af6c550800000000000000
-      internalID: 6180902458064269819
+      spriteID: c7285b92c18143460800000000000000
+      internalID: 7220422611819659900
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Untitled 28_0: 6180902458064269819
+      player_fly_0: 7220422611819659900
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

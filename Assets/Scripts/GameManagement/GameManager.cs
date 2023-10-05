@@ -80,6 +80,10 @@ namespace GameManagement {
 			// Highest score is updated by UIHighScore component
 		}
 
+		public void ScoreBonus (int bonus) {
+			_score += bonus;
+		}
+
 		#region Buffs
 
 		[Header("Buffs (Power-ups)")]

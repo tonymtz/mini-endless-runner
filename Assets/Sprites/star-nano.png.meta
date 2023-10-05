@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 88579359b50f04f0b8fb9e73fcbf3fe0
+guid: c28925f5594b6412fb9cbd428183ee55
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6180902458064269819
-    second: Untitled 28_0
+      213: -9170756448319085704
+    second: star-nano_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled 28_0
+      name: star-nano_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf1724ca90af6c550800000000000000
-      internalID: 6180902458064269819
+      spriteID: 8736158599deab080800000000000000
+      internalID: -9170756448319085704
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Untitled 28_0: 6180902458064269819
+      star-nano_0: -9170756448319085704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
