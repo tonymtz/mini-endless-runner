@@ -12,7 +12,6 @@ namespace Levels {
 		public PlatformController LatestPlatform => _latestPlatform;
 		public Transform nextBuff;
 
-		// Start is called before the first frame update
 		void Start () {
 			AddPlatform();
 		}
