@@ -23,6 +23,7 @@ namespace Player {
 		[SerializeField] ParticleSystem smoke;
 		[SerializeField] Transform transformToSpawnOnGrounded;
 		[SerializeField] ParticleSystem magic;
+		[SerializeField] ParticleSystem trail;
 
 		public float Jump {
 			get {
@@ -148,6 +149,13 @@ namespace Player {
 		void ToggleMagic (bool value) {
 			if (magic != null) {
 				var emission = magic.emission;
+				emission.enabled = value;
+			}
+		}
+		
+		public void ToggleTrail (bool value) {
+			if (trail != null) {
+				var emission = trail.emission;
 				emission.enabled = value;
 			}
 		}

@@ -105,6 +105,7 @@ namespace GameManagement {
 		public void StartMoreSpeed () {
 			BuffPicked(moreSpeedLabel, moreSpeedTime);
 			_playerMovement.SpeedMultiplier = moreSpeedMultiplier;
+			_playerMovement.ToggleTrail(true);
 			StartCoroutine(EndMoreSpeed());
 		}
 
@@ -112,6 +113,7 @@ namespace GameManagement {
 			yield return new WaitForSeconds(moreSpeedTime);
 			UIEffect.Instance.HideEffect();
 			_playerMovement.SpeedMultiplier = 1f;
+			_playerMovement.ToggleTrail(false);
 		}
 
 		#endregion
