@@ -50,6 +50,8 @@ namespace GameManagement {
 			playScreen.SetActive(false);
 			gameoverScreen.SetActive(false);
 			startScreen.SetActive(true);
+
+			UICurtain.Instance.OpenCurtain();
 		}
 
 		public void StartGame () {
@@ -70,12 +72,16 @@ namespace GameManagement {
 		}
 
 		public void GameOver () {
+			if (_isGameOver) return;
+
 			_isPlaying = false;
 			_isGameOver = true;
 			startScreen.SetActive(false);
 			playScreen.SetActive(false);
 			gameoverScreen.SetActive(true);
 			GetComponent<BuffsGenerator>().StopGeneration();
+
+			UICurtain.Instance.StartGameOverAnimation();
 
 			// Highest score is updated by UIHighScore component
 		}
