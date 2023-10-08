@@ -1,3 +1,4 @@
+using Audio;
 using GameManagement;
 using System;
 using System.Collections;
@@ -82,6 +83,7 @@ namespace Player {
 				_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, Jump);
 				_jumpBufferCounter = 0f;
 				StartCoroutine(JumpCooldown());
+				AudioManager.Instance.Sfx("jump");
 			} else if (Input.GetButtonUp("Jump") && _rigidbody2D.velocity.y > 0f) {
 				_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y*0.5f);
 				_coyoteTimerCounter = 0f;

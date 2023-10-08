@@ -1,3 +1,4 @@
+using Audio;
 using Enemies;
 using Player;
 using System.Collections;
@@ -52,6 +53,8 @@ namespace GameManagement {
 			startScreen.SetActive(true);
 
 			UICurtain.Instance.OpenCurtain();
+			
+			AudioManager.Instance.Music("start");
 		}
 
 		public void StartGame () {
@@ -69,6 +72,8 @@ namespace GameManagement {
 			_playerMovement.SpeedMultiplier = 1;
 			SpeedManager.Instance.StartGame();
 			GetComponent<BuffsGenerator>().StartGeneration();
+			
+			AudioManager.Instance.Music("gameplay");
 		}
 
 		public void GameOver () {
@@ -82,6 +87,8 @@ namespace GameManagement {
 			GetComponent<BuffsGenerator>().StopGeneration();
 
 			UICurtain.Instance.StartGameOverAnimation();
+			
+			AudioManager.Instance.Music("gameover");
 
 			// Highest score is updated by UIHighScore component
 		}
@@ -99,6 +106,7 @@ namespace GameManagement {
 			_score += bonusPerBuff;
 			UIEffect.Instance.StartEffect(display, time);
 			UIScoreWithAnimation.Instance.Animate();
+			AudioManager.Instance.Sfx("buff");
 		}
 
 		#region Player Speed

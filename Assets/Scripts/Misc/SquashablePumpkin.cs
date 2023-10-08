@@ -1,3 +1,4 @@
+using Audio;
 using GameManagement;
 using System.Collections;
 using UI;
@@ -13,6 +14,7 @@ namespace Misc {
 				GameManager.Instance.ScoreBonus(bonus);
 				UIScoreWithAnimation.Instance.Animate();
 				OnActorInteraction();
+				AudioManager.Instance.Sfx("squash");
 			} else if (other.CompareTag("Pumpking")) {
 				OnActorInteraction();
 			}
