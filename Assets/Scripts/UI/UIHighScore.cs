@@ -1,10 +1,9 @@
 using GameManagement;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI {
 	public class UIHighScore : MonoBehaviour {
-		[SerializeField] Text text;
+		[SerializeField] OutlinedText text;
 
 		int _currentHighest;
 
@@ -14,11 +13,11 @@ namespace UI {
 
 			if (score > _currentHighest) {
 				// new highest!
-				text.text = "New\nrecord!";
+				text.SetText("New\nrecord!");
 				PlayerPrefs.SetInt("highest-score", score);
 			} else {
 				// nothing!
-				text.text = string.Format("Your record:\n{0}", _currentHighest);
+				text.SetText(string.Format("Your record:\n{0}", _currentHighest));
 			}
 		}
 	}
