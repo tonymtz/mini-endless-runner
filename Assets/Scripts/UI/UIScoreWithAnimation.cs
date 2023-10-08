@@ -1,6 +1,5 @@
 using GameManagement;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI {
 	public class UIScoreWithAnimation : MonoBehaviour {
@@ -19,14 +18,16 @@ namespace UI {
 
 		#endregion
 
-		[SerializeField] Text text;
+		[SerializeField] OutlinedText text;
 		[SerializeField] string label;
 
-		void Update () {
+		void FixedUpdate () {
+			if (!GameManager.Instance.IsPlaying) return;
+
 			if (label != null && label.Trim() != "") {
-				text.text = string.Format("{0}\n{1}", label, GameManager.Instance.Score);
+				text.SetText(string.Format("{0}\n{1}", label, GameManager.Instance.Score));
 			} else {
-				text.text = string.Format("{0}", GameManager.Instance.Score);
+				text.SetText(string.Format("{0}", GameManager.Instance.Score));
 			}
 		}
 

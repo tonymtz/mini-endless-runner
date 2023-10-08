@@ -35,6 +35,12 @@ namespace UI {
 		}
 
 		public void StartGameOverAnimation () {
+			GameObject player = GameObject.FindWithTag("Player");
+			if (player != null) {
+				transform.position = player.transform.position;
+			} else {
+				transform.position = Vector2.zero;
+			}
 			StartCoroutine(GameOverAnimation());
 		}
 

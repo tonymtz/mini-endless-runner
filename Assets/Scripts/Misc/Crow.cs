@@ -1,5 +1,6 @@
 using GameManagement;
 using System.Collections;
+using UI;
 using UnityEngine;
 
 namespace Misc {
@@ -26,6 +27,7 @@ namespace Misc {
 		void OnTriggerEnter2D (Collider2D other) {
 			if (other.CompareTag("Player")) {
 				GameManager.Instance.ScoreBonus(bonus);
+				UIScoreWithAnimation.Instance.Animate();
 				OnActorInteraction();
 			} else if (other.CompareTag("Pumpking")) {
 				OnActorInteraction();

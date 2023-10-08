@@ -4,6 +4,8 @@ using UnityEngine;
 namespace UI {
 	public class UIHighScore : MonoBehaviour {
 		[SerializeField] OutlinedText text;
+		[SerializeField] string highestText = "Your best run:\n{0}";
+		[SerializeField] string newRecordText = "New\nrecord!";
 
 		int _currentHighest;
 
@@ -13,11 +15,11 @@ namespace UI {
 
 			if (score > _currentHighest) {
 				// new highest!
-				text.SetText("New\nrecord!");
+				text.SetText(newRecordText);
 				PlayerPrefs.SetInt("highest-score", score);
 			} else {
 				// nothing!
-				text.SetText(string.Format("Your record:\n{0}", _currentHighest));
+				text.SetText(string.Format(highestText, _currentHighest));
 			}
 		}
 	}

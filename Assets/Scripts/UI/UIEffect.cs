@@ -21,7 +21,7 @@ namespace UI {
 		float _maxTime;
 		float _currentTime;
 
-		[SerializeField] Text label;
+		[SerializeField] OutlinedText label;
 		[SerializeField] Slider slider;
 
 		void Start () {
@@ -32,7 +32,7 @@ namespace UI {
 			slider.gameObject.SetActive(true);
 			_currentTime = time;
 			slider.maxValue = time;
-			label.text = display;
+			label.SetText(display);
 		}
 
 		void Update () {
@@ -42,7 +42,7 @@ namespace UI {
 		}
 
 		public void HideEffect () {
-			label.text = "";
+			label.SetText("");
 			slider.gameObject.SetActive(false);
 		}
 	}
